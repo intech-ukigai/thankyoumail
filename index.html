@@ -2,7 +2,7 @@
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>サンキューメール作成｜株式会社インテック</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#081321;color:#f4f7fb;font:15px/1.6 system-ui,sans-serif}header{background:#050b16 var(--brand-background) right center / auto 160% no-repeat;border-bottom:1px solid #233852;padding:20px max(16px,calc((100% - 1120px)/2))}header img{display:inline-block;vertical-align:middle;margin-right:12px;width:104px}main{max-width:1152px;margin:auto;padding:24px 16px 48px}h1{font-size:clamp(24px,4vw,34px);margin:0 0 22px}h2{font-size:18px;margin:0 0 14px}.grid{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px;align-items:start}.panel{border:1px solid #29415d;background:#101f34;padding:18px;min-width:0}label{display:block;margin:0 0 16px}input[type=text],select{display:block;width:100%;margin-top:6px;background:#071421;color:#fff;border:1px solid #536d8b;padding:10px;font:inherit;border-radius:4px}button{font:inherit;font-weight:700;border:1px solid #527193;color:white;background:#172e49;padding:9px 12px;cursor:pointer;border-radius:4px}.primary{background:#1166a8;border-color:#4eacf0}button:disabled{opacity:.45;cursor:default}:focus-visible{outline:2px solid #69c3ff;outline-offset:3px}.actions{display:flex;flex-wrap:wrap;gap:8px}.subject{padding:10px;background:#081321;margin:0 0 12px}.note{color:#c0d3e8;font-size:13px}.preview{padding:12px;background:#081321}#status{min-height:1.6em;margin:10px 0;color:#a9dbfc;font-size:13px}@media(max-width:760px){.grid{grid-template-columns:1fr}.preview{padding:4px}}
-</style></head><body>
+</style><link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,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"></head><body>
 <header><img alt="InTech" src="https://nexus-c.co.jp/wp/wp-content/uploads/2026/07/%E3%82%A4%E3%83%B3%E3%83%86%E3%83%83%E3%82%AF%E3%83%AD%E3%82%B4%E9%80%8F%E9%81%8E.png">株式会社インテック</header>
 <main><h1>サンキューメール作成</h1><div class="grid">
 <section class="panel" aria-labelledby="input-heading"><h2 id="input-heading">お申し込み情報</h2>
@@ -58,6 +58,15 @@ function render() {
   const name = get('customer').value.trim();
   const selected = campaigns[campaign.value];
   const payouts = selected?.payouts ?? [];
+  const cashback = payouts.reduce((sum, [, amount]) => sum + amount, 0);
+  const benefitSummary = ['ご利用開始月の月額基本料金無料'];
+  if (selected?.support) benefitSummary.push('お乗り換え時の違約金サポート（最大7万円）');
+  if (cashback) {
+    benefitSummary.push('現金' + money.format(cashback) + '円キャッシュバック');
+  }
+  const offer = selected
+    ? '<br>今回のお申し込みの特典は、<strong>' + benefitSummary.join('、') + '</strong>です。'
+    : '';
   const portability = get('phone').checked;
   const salutation = escapeHtml(name ? (/様$/.test(name) ? name : name + ' 様') : '〇〇 様');
   let benefits = '';
@@ -66,14 +75,14 @@ function render() {
       '<strong>' + (payouts.length > 1 ? (index + 1) + '回目　' : '') + money.format(amount) + '円</strong><br>ご利用開始日の' + months + 'か月後の同日から45日間'
     ));
     benefits = card(heading('キャッシュバックのお受け取り') +
-      paragraph('合計 <strong>' + money.format(payouts.reduce((sum, [, amount]) => sum + amount, 0)) + '円</strong>') + lines.join('') +
+      paragraph('合計 <strong>' + money.format(cashback) + '円</strong>') + lines.join('') +
       paragraph((payouts.length > 1 ? '各回の期間内に' : '期間内に') + '、NUROマイページからお受け取りのお手続きをお願いいたします。<br>ご利用開始から' + selected.deadline + 'か月後の月末までに、連絡先メールアドレスとお支払い方法の登録が必要です。'));
   }
   if (selected?.support) {
     benefits += card(heading('お乗り換え時の違約金サポート（最大70,000円）') +
       paragraph('ご利用開始月を1か月目として、7か月目の月末までにお支払い方法をご登録ください。<br>NUROから届く「解約違約金証明書貼付シート」に証明書類のコピーを添え、シート発送から2か月後の月末必着でご返送ください。<br>特典のお受け取り案内がEメールで届きましたら、手続きが可能になってから45日間以内にNUROマイページでお受け取り口座をご登録ください。'));
   }
-  const payment = card(heading('契約内容通知書が届いたら、すぐにお支払い方法をご登録ください') +
+  const payment = card(heading('契約内容通知書が届いたら、お早めにお支払い方法のご登録をお願いいたします。') +
     paragraph('お申し込み手続き完了後、約1週間〜10日で「契約内容通知書」が郵送で届きます。<br><strong>届きましたら、お早めにお手続きください。</strong><br>連絡先メールアドレスは、お申込書にご記入いただいたものを弊社にて登録済みです。') +
     paragraph('1. 書面に記載されたログインIDとパスワードをご確認ください。<br>2. NUROマイページ、または「NURO 光」アプリにログインしてください。<br>3. お支払い方法をご登録ください。NUROマイページでは「ご契約情報」→「お支払い情報の登録・変更」からお手続きいただけます。') +
     (payouts.length ? paragraph('<strong>所定の期限までに登録が完了していない場合、対象の特典をお受け取りいただけません。</strong>') : '') +
@@ -86,7 +95,7 @@ function render() {
   const signature = '<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td bgcolor="#f4f7fb" style="border:1px solid #dbe4ee;padding:16px;font-size:14px;line-height:1.8"><strong>株式会社インテック</strong><br>〒107-0062<br>東京都港区南青山２丁目２番１５号　ウィン青山９４２<br>TEL：' + link('tel:0345950221','03-4595-0221') +
     '<br>Email：' + link('mailto:info@nexus-c.co.jp','info@nexus-c.co.jp') + '<br>URL：' + link('https://nexus-c.co.jp/','https://nexus-c.co.jp/') + '</td></tr></table>';
   preview.innerHTML = '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:auto;border:1px solid #29415d;font-family:Arial,Meiryo,sans-serif;color:#14263c"><tr><td bgcolor="#081321" style="padding:0"><img src="' + embeddedBanner + '" width="640" alt="株式会社インテック｜NURO 光のお申し込みありがとうございます" style="display:block;width:100%;max-width:640px;height:auto;border:0"></td></tr><tr><td bgcolor="#081321" style="background-color:#081321;padding:4px 24px 24px;border-bottom:4px solid #269df0;color:#fff">' +
-    '<div style="padding:20px 0 4px;color:#fff">' + paragraph(salutation) + paragraph('このたびは、株式会社インテックを通じてNURO 光をお申し込みいただき、誠にありがとうございます。<br>今回のお申し込みには、<strong>ご利用開始月の月額基本料金が無料になる特典</strong>がついています。') + '</div></td></tr><tr><td bgcolor="#ffffff" style="padding:20px 16px;color:#14263c">' +
+    '<div style="padding:20px 0 4px;color:#fff">' + paragraph(salutation) + paragraph('このたびは、株式会社インテックを通じてNURO 光をお申し込みいただき、誠にありがとうございます。' + offer) + '</div></td></tr><tr><td bgcolor="#ffffff" style="padding:20px 16px;color:#14263c">' +
     payment + notices + benefits + paragraph('お手続きや工事についてご不明な点がございましたら、弊社までお気軽にお問い合わせください。<br>また、開通後のお問い合わせやご解約などの連絡先はNUROサポートデスク（0570-099-118）となっております。<br>今後とも何卒よろしくお願い申し上げます。') + paragraph('このメールは送信専用です。<br>お問い合わせは ' + link('mailto:info@nexus-c.co.jp', 'info@nexus-c.co.jp') + ' までお願いいたします。') + signature + '</td></tr></table>';
   const incomplete = !name || !selected;
   get('copy-body').disabled = incomplete;
