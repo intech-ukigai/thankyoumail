@@ -13,7 +13,7 @@
 <button type="reset">入力をクリア</button></form></section>
 <section class="panel" aria-labelledby="preview-heading"><h2 id="preview-heading">メールプレビュー</h2>
 <p class="subject"><b>件名</b>　<span id="subject">【株式会社インテック】NURO 光のお申し込みありがとうございます</span></p>
-<div class="actions"><button id="copy-subject" type="button">件名をコピー</button><button id="copy-body" type="button" class="primary" disabled>装飾付き本文をコピー</button><button id="copy-text" type="button" disabled>テキスト本文をコピー</button> <a id="download-banner" download="intech-email-banner.jpg">メール用画像を保存</a></div>
+<div class="actions"><button id="copy-subject" type="button">件名をコピー</button><button id="copy-body" class="primary" type="button" disabled>装飾付き本文をコピー</button><button id="copy-text" type="button" disabled>テキスト本文をコピー</button> <button id="copy-banner" type="button">ロゴ入り画像をコピー</button> <a id="download-banner" download="intech-email-banner.jpg">メール用画像を保存</a></div>
 <p id="status" role="status"></p><p id="guide" class="note">お名前とキャンペーンを入力すると本文をコピーできます。</p>
 <div class="preview" id="preview" aria-label="メール本文"></div></section></div></main>
 <script>
@@ -33,6 +33,10 @@ const bannerUrl = location.protocol === 'https:'
   ? new URL('intech-email-banner.jpg', location.href).href
   : embeddedBanner;
 document.getElementById('download-banner').href = embeddedBanner;
+const hostedBanner = new Image();
+if (bannerUrl !== embeddedBanner) hostedBanner.src = bannerUrl;
+let clipboardBanner = embeddedBanner;
+hostedBanner.addEventListener('load', () => { clipboardBanner = bannerUrl; });
 const get = id => document.getElementById(id);
 const form = get('details');
 const campaign = get('campaign');
@@ -81,7 +85,7 @@ function render() {
     paragraph('NURO 光は、インターネットの開通工事が完了した日からご利用いただけます。<br>この日が「ご利用開始日」です。');
   const signature = '<table role="presentation" width="100%" cellspacing="0" cellpadding="0"><tr><td bgcolor="#f4f7fb" style="border:1px solid #dbe4ee;padding:16px;font-size:14px;line-height:1.8"><strong>株式会社インテック</strong><br>〒107-0062<br>東京都港区南青山２丁目２番１５号　ウィン青山９４２<br>TEL：' + link('tel:0345950221','03-4595-0221') +
     '<br>Email：' + link('mailto:info@nexus-c.co.jp','info@nexus-c.co.jp') + '<br>URL：' + link('https://nexus-c.co.jp/','https://nexus-c.co.jp/') + '</td></tr></table>';
-  preview.innerHTML = '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:auto;border:1px solid #29415d;font-family:Arial,Meiryo,sans-serif;color:#14263c"><tr><td bgcolor="#081321" style="padding:0"><img src="' + bannerUrl + '" width="640" alt="株式会社インテック｜NURO 光のお申し込みありがとうございます" style="display:block;width:100%;max-width:640px;height:auto;border:0"></td></tr><tr><td bgcolor="#081321" style="background-color:#081321;padding:4px 24px 24px;border-bottom:4px solid #269df0;color:#fff">' +
+  preview.innerHTML = '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width:640px;margin:auto;border:1px solid #29415d;font-family:Arial,Meiryo,sans-serif;color:#14263c"><tr><td bgcolor="#081321" style="padding:0"><img src="' + embeddedBanner + '" width="640" alt="株式会社インテック｜NURO 光のお申し込みありがとうございます" style="display:block;width:100%;max-width:640px;height:auto;border:0"></td></tr><tr><td bgcolor="#081321" style="background-color:#081321;padding:4px 24px 24px;border-bottom:4px solid #269df0;color:#fff">' +
     '<div style="padding:20px 0 4px;color:#fff">' + paragraph(salutation) + paragraph('このたびは、株式会社インテックを通じてNURO 光をお申し込みいただき、誠にありがとうございます。<br>今回のお申し込みには、<strong>ご利用開始月の月額基本料金が無料になる特典</strong>がついています。') + '</div></td></tr><tr><td bgcolor="#ffffff" style="padding:20px 16px;color:#14263c">' +
     payment + notices + benefits + paragraph('お手続きや工事についてご不明な点がございましたら、弊社までお気軽にお問い合わせください。<br>また、開通後のお問い合わせやご解約などの連絡先はNUROサポートデスク（0570-099-118）となっております。<br>今後とも何卒よろしくお願い申し上げます。') + paragraph('このメールは送信専用です。<br>お問い合わせは ' + link('mailto:info@nexus-c.co.jp', 'info@nexus-c.co.jp') + ' までお願いいたします。') + signature + '</td></tr></table>';
   const incomplete = !name || !selected;
@@ -135,7 +139,7 @@ async function copy(kind) {
     try {
       if (rich) {
         await navigator.clipboard.write([new ClipboardItem({
-          'text/html': new Blob([preview.innerHTML], {type:'text/html'}),
+          'text/html': new Blob([preview.innerHTML.replace(embeddedBanner, clipboardBanner)], {type:'text/html'}),
           'text/plain': new Blob([plain], {type:'text/plain'})
         })]);
       } else await navigator.clipboard.writeText(plain);
@@ -147,6 +151,27 @@ async function copy(kind) {
     status.textContent = 'コピーできませんでした。画面の件名またはプレビュー本文を選択してコピーしてください。';
   }
 }
+async function copyBanner() {
+  try {
+    const png = (async () => {
+      const image = preview.querySelector('img');
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      canvas.getContext('2d').drawImage(image, 0, 0);
+      return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Image encoding failed')), 'image/png');
+      });
+    })();
+    await navigator.clipboard.write([new ClipboardItem({'image/png': png})]);
+    status.textContent = 'ロゴ入り画像をコピーしました。メール本文の先頭に貼り付けてください。';
+  } catch {
+    status.textContent = '画像をコピーできませんでした。プレビューの画像を右クリックして「画像をコピー」を選んでください。';
+  }
+}
+
+get('copy-banner').addEventListener('click', copyBanner);
 form.addEventListener('submit', event => event.preventDefault());
 form.addEventListener('input', render);
 form.addEventListener('reset', () => requestAnimationFrame(render));
